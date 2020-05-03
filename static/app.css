@@ -1,0 +1,20 @@
+body {
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+#output{
+    padding-top: 90px;
+    padding-bottom: 70px;
+    padding-left: 20;
+    padding-right: 20;
+}
+
+.modal{
+    color:black;
+}
+
+.modal-backdrop{
+    opacity:1 !important;
+}

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RPi Speaker Qur'an</title>
+
+    <!-- socket.io -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+   
+    <!-- iconify -->
+    <script src="https://code.iconify.design/1/1.0.3/iconify.min.js"></script>
+
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/4a822b1d6a.js" crossorigin="anonymous"></script>
+
+    <!-- flask call js inside static folder -->
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <link href="{{ url_for('static', filename='app.css') }}" rel="stylesheet"/>
+    
+</head>
+<body>
+    <h1 class="mt-4">
+        <i class="iconify" data-icon="logos-raspberry-pi" data-inline="true"></i>
+        Speaker Qur'an
+    </h1>
+    
+    <!-- Button trigger modal -->
+    <button type="button" class="mt-3 btn-sm btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">
+        <i class="fas fa-cog"></i>&nbsp;
+        Settings
+    </button>
+  
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">
+                <i class="iconify" data-icon="logos-raspberry-pi" data-inline="true"></i>
+                Settings
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                
+                <nav>
+                    <div class="row nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="col-sm-6 nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Ayat آية</a>
+                        <a class="col-sm-6 nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Juz الجزء</a>
+                    </div>
+                </nav>
+
+                <!-- tab ayat konten -->
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        
+                        <h5 class="mt-3 mb-3">Play MP3 Qur'an per ayat (114 surah)</h5>
+                        
+                        <!-- select surah -->
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">Surah</label>
+                            </div>
+                            <select class="surah custom-select" id="inputGroupSelect01">
+                                <option selected disabled value="">Pilih surah ...</option>
+                                <option value="1">1. Surah Al-Fatihah الفاتحة</option>
+                                <option value="2">2. Surah Al-Baqarah البقرة</option>
+                                <option value="3">3. Surah Ali 'Imran آل عمران</option>
+                                <option value="4">4. Surah An-Nisa' النّساء</option>
+                                <option value="5">5. Surah Al-Ma'idah المائدة</option>
+                                <option value="6">6. Surah Al-An'am الانعام</option>
+                                <option value="7">7. Surah Al-A’raf الأعراف</option>
+                                <option value="8">8. Surah Al-Anfal الأنفال</option>
+                                <option value="9">9. Surah At-Taubah التوبة‎‎</option>
+                                <option value="10">10. Surah Yunus يونس</option>
+                                <option value="11">11. Surah Hud هود</option>
+                                <option value="12">12. Surah Yusuf يوسف</option>
+                                <option value="13">13. Surah Ar-Ra’d الرعد</option>
+                                <option value="14">14. Surah Ibrahim إبراهيم</option>
+                                <option value="15">15. Surah Al-Hijr الحجر</option>
+                                <option value="16">16. Surah An-Nahl النحل</option>
+                                <option value="17">17. Surah Al-Isra' الإسراء</option>
+                                <option value="18">18. Surah Al-Kahf الكهف</option>
+                                <option value="19">19. Surah Maryam مريم</option>
+                                <option value="20">20. Surah Ta Ha طه</option>
+                                <option value="21">21. Surah Al-Anbiya الأنبياء</option>
+                                <option value="22">22. Surah Al-Hajj الحجّ</option>
+                                <option value="23">23. Surah Al-Mu’minun المؤمنون</option>
+                                <option value="24">24. Surah An-Nur النور</option>
+                                <option value="25">25. Surah Al-Furqan الفرقان</option>
+                                <option value="26">26. Surah Asy-Syu'ara' الشعراء</option>
+                                <option value="27">27. Surah An-Naml النمل</option>
+                                <option value="28">28. Surah Al-Qasas القصص</option>
+                                <option value="29">29. Surah Al-'Ankabut العنكبوت</option>
+                                <option value="30">30. Surah Ar-Rum الروم</option>
+                                <option value="31">31. Surah Luqman لقمان</option>
+                                <option value="32">32. Surah As-Sajdah السجدة</option>
+                                <option value="33">33. Surah Al-Ahzab الْأحزاب</option>
+                                <option value="34">34. Surah Saba’ سبأ</option>
+                                <option value="35">35. Surah Fatir فاطر</option>
+                                <option value="36">36. Surah Ya Sin يس</option>
+                                <option value="37">37. Surah As-Saffat الصافات</option>
+                                <option value="38">38. Surah Sad ص</option>
+                                <option value="39">39. Surah Az-Zumar الزمر</option>
+                                <option value="40">40. Surah Ghafir غافر</option>
+                                <option value="41">41. Surah Fussilat فصلت</option>
+                                <option value="42">42. Surah Asy-Syura الشورى</option>
+                                <option value="43">43. Surah Az-Zukhruf الزخرف</option>
+                                <option value="44">44. Surah Ad-Dukhan الدخان</option>
+                                <option value="45">45. Surah Al-Jasiyah الجاثية</option>
+                                <option value="46">46. Surah Al-Ahqaf الَأحقاف</option>
+                                <option value="47">47. Surah Muhammad محمد</option>
+                                <option value="48">48. Surah Al-Fath الفتح</option>
+                                <option value="49">49. Surah Al-Hujurat الحجرات</option>
+                                <option value="50">50. Surah Qaf ق</option>
+                                <option value="51">51. Surah Az-Zariyat الذاريات</option>
+                                <option value="52">52. Surah At-Tur الطور</option>
+                                <option value="53">53. Surah An-Najm النجم</option>
+                                <option value="54">54. Surah Al-Qamar القمر</option>
+                                <option value="55">55. Surah Ar-Rahman الرحمن</option>
+                                <option value="56">56. Surah Al-Waqi’ah الواقعة</option>
+                                <option value="57">57. Surah Al-Hadid الحديد</option>
+                                <option value="58">58. Surah Al-Mujadilah المجادلة</option>
+                                <option value="59">59. Surah Al-Hasyr الحشر</option>
+                                <option value="60">60. Surah Al-Mumtahanah الممتحنة</option>
+                                <option value="61">61. Surah As-Saff الصف</option>
+                                <option value="62">62. Surah Al-Jumu’ah الجمعة</option>
+                                <option value="63">63. Surah Al-Munafiqun المنافقون</option>
+                                <option value="64">64. Surah At-Tagabun التغابن</option>
+                                <option value="65">65. Surah At-Talaq الطلاق</option>
+                                <option value="66">66. Surah At-Tahrim التحريم</option>
+                                <option value="67">67. Surah Al-Mulk الملك</option>
+                                <option value="68">68. Surah Al-Qalam القلم</option>
+                                <option value="69">69. Surah Al-Haqqah الحآقة</option>
+                                <option value="70">70. Surah Al-Ma’arij المعارج</option>
+                                <option value="71">71. Surah Nuh نوح</option>
+                                <option value="72">72. Surah Al-Jinn الجن</option>
+                                <option value="73">73. Surah Al-Muzzammil المزمل</option>
+                                <option value="74">74. Surah Al-Muddassir المدثر</option>
+                                <option value="75">75. Surah Al-Qiyamah القيامة</option>
+                                <option value="76">76. Surah Al-Insan الإنسان</option>
+                                <option value="77">77. Surah Al-Mursalat المرسلات</option>
+                                <option value="78">78. Surah An-Naba’ النبأ</option>
+                                <option value="79">79. Surah An-Nazi’at النازعات</option>
+                                <option value="80">80. Surah 'Abasa عبس</option>
+                                <option value="81">81. Surah At-Takwir التكوير</option>
+                                <option value="82">82. Surah Al-Infitar الإنفطار</option>
+                                <option value="83">83. Surah Al-Tatfif المطففين</option>
+                                <option value="84">84. Surah Al-Insyiqaq الإنشقاق</option>
+                                <option value="85">85. Surah Al-Buruj البروج</option>
+                                <option value="86">86. Surah At-Tariq الطارق</option>
+                                <option value="87">87. Surah Al-A’la الأعلى</option>
+                                <option value="88">88. Surah Al-Gasyiyah الغاشية</option>
+                                <option value="89">89. Surah Al-Fajr الفجر</option>
+                                <option value="90">90. Surah Al-Balad البلد</option>
+                                <option value="91">91. Surah Asy-Syams الشمس</option>
+                                <option value="92">92. Surah Al-Lail اليل</option>
+                                <option value="93">93. Surah Ad-Duha الضحى‎‎</option>
+                                <option value="94">94. Surah Al-Insyirah الإنشراح‎‎</option>
+                                <option value="95">95. Surah At-Tin التينِ</option>
+                                <option value="96">96. Surah Al-'Alaq العلق</option>
+                                <option value="97">97. Surah Al-Qadr القدرِ</option>
+                                <option value="98">98. Surah Al-Bayyinah البينة</option>
+                                <option value="99">99. Surah Az-Zalzalah الزلزلة‎‎</option>
+                                <option value="100">100. Surah Al-'Adiyat العاديات‎‎</option>
+                                <option value="101">101. Surah Al-Qari'ah القارعة‎‎</option>
+                                <option value="102">102. Surah At-Takasur التكاثر‎‎</option>
+                                <option value="103">103. Surah Al-'Asr العصر</option>
+                                <option value="104">104. Surah Al-Humazah الهمزة‎‎</option>
+                                <option value="105">105. Surah Al-Fil الفيل</option>
+                                <option value="106">106. Surah Quraisy قريش</option>
+                                <option value="107">107. Surah Al-Ma’un الماعون</option>
+                                <option value="108">108. Surah Al-Kausar الكوثر</option>
+                                <option value="109">109. Surah Al-Kafirun الكافرون</option>
+                                <option value="110">110. Surah An-Nasr النصر‎‎</option>
+                                <option value="111">111. Surah Al-Lahab اللهب‎‎</option>
+                                <option value="112">112. Surah Al-Ikhlas الإخلاص‎‎</option>
+                                <option value="113">113. Surah Al-Falaq الفلق</option>
+                                <option value="114">114. Surah An-Nas الناس</option>
+                            </select>
+                        </div>
+                        
+                        <div class="row">
+
+                            <!-- input awal ayat -->
+                            <div class="input-group mb-3 col-sm-6">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Awal ayat</span>
+                                </div>
+                                <input type="number" class="awal form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                            </div>
+
+                            <!-- input akhir ayat -->
+                            <div class="input-group mb-3 col-sm-6">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Akhir ayat</span>
+                                </div>
+                                <input type="number" class="akhir form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                        
+                        </div>
+
+                        <!-- buttons -->
+                        <hr>
+
+                        <button id="playsurah" type="button" class="btn btn-success">
+                            <i class="fas fa-play"></i>&nbsp;
+                            Play
+                        </button>
+                        <button id="stopsurah" type="button" class="btn btn-danger">
+                            <i class="fas fa-stop"></i>&nbsp;
+                            Stop
+                        </button>
+
+                    </div>
+
+                    <!-- tab juz konten -->
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+                        <h5 class="mt-3 mb-3">Play MP3 Qur'an per juz (30 juz)</h5>
+                        
+                        <!-- select surah -->
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">Juz</label>
+                            </div>
+                            <select class="juz custom-select" id="inputGroupSelect01">
+                                <option selected disabled value="">Pilih juz ...</option>
+                                <option value="1">Juz 1</option>
+                                <option value="2">Juz 2</option>
+                                <option value="3">Juz 3</option>
+                                <option value="4">Juz 4</option>
+                                <option value="5">Juz 5</option>
+                                <option value="6">Juz 6</option>
+                                <option value="7">Juz 7</option>
+                                <option value="8">Juz 8</option>
+                                <option value="9">Juz 9</option>
+                                <option value="10">Juz 10</option>
+                                <option value="11">Juz 11</option>
+                                <option value="12">Juz 12</option>
+                                <option value="13">Juz 13</option>
+                                <option value="14">Juz 14</option>
+                                <option value="15">Juz 15</option>
+                                <option value="16">Juz 16</option>
+                                <option value="17">Juz 17</option>
+                                <option value="18">Juz 18</option>
+                                <option value="19">Juz 19</option>
+                                <option value="20">Juz 20</option>
+                                <option value="21">Juz 21</option>
+                                <option value="22">Juz 22</option>
+                                <option value="23">Juz 23</option>
+                                <option value="24">Juz 24</option>
+                                <option value="25">Juz 25</option>
+                                <option value="26">Juz 26</option>
+                                <option value="27">Juz 27</option>
+                                <option value="28">Juz 28</option>
+                                <option value="29">Juz 29</option>
+                                <option value="30">Juz 30</option>
+                            </select>
+                        </div>
+
+                        <!-- buttons -->
+                        <hr>
+
+                        <button id="playjuz" type="button" class="btn btn-success">
+                            <i class="fas fa-play"></i>&nbsp;
+                            Play
+                        </button>
+                        <button id="stopjuz" type="button" class="btn btn-danger">
+                            <i class="fas fa-stop"></i>&nbsp;
+                            Stop
+                        </button>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        </div>
+    </div>
+    
+    <div id="output">
+        <b style="font-size:30px" id="now">{{now}}</b>
+        <marquee id="textoutput" style="font-size: 150px;">
+            {{text}}
+        </marquee>
+    </div>
+
+</body>
+</html>
