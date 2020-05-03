@@ -45,22 +45,31 @@ This project is built on __Raspberry Pi 3B+__ with __Raspbian OS__ and __Python 
     $ git clone https://github.com/LintangWisesa/RPi_QuranSpeaker
     ```
     
-    Also install python packages needed through __*pip*__:
-
-    ```bash
-    $ # pip3 install flask flask-socketio eventlet gevent gevent-websocket
-
-    ```
-
 <hr>
 
-- ### 3. Insert your IP on the app
+- ### 3. Download files & install packages
 
-    You have insert your IP address on 2 places: ```app.py``` and ```/static/app.js```. First, insert your IP address on ```app.py``` file. Open terminal then do these steps.
+    Create ```mp3``` folder on this project's root, then download Qur'an Audio files (_.mp3_) from links above. Then put them into ```mp3``` folder inside this project root folder.
 
     ```bash
     $ cd RPi_QuranSpeaker
 
+    $ mkdir mp3
+    ```
+
+    Also install Python packages needed through __*pip*__:
+
+    ```bash
+    $ pip3 install flask flask-socketio eventlet gevent gevent-websocket
+    ```
+
+<hr>
+
+- ### 4. Insert your IP on the app
+
+    You have to insert your IP address on 2 places: ```app.py``` and ```/static/app.js```. First, insert your IP address on ```app.py``` file. Open terminal then do these steps.
+
+    ```bash
     $ sudo nano app.py
     ```
 
@@ -70,19 +79,17 @@ This project is built on __Raspberry Pi 3B+__ with __Raspbian OS__ and __Python 
     if __name__ == '__main__':
         socketio.run(
             app, 
-            host="123.456.78.910",     # your IP address
-            port=5000, 
-            log_output=True, 
-            debug=True, 
-            use_reloader=True
+            host = "123.456.78.910",     # your IP address
+            port = 5000, 
+            log_output = True, 
+            debug = True, 
+            use_reloader = True
         )
     ```
 
     Second, go to ```/static``` then insert your Pi's IP address on ```app.js``` file.
 
     ```bash
-    $ cd RPi_QuranSpeaker
-
     $ cd static
 
     $ sudo nano app.js
@@ -99,7 +106,7 @@ This project is built on __Raspberry Pi 3B+__ with __Raspbian OS__ and __Python 
 
 <hr>
 
-- ### 4. Run Flask application
+- ### 5. Run Flask application
 
     Go back to the project root, then run its server application (```app.py``` file).
 
@@ -115,7 +122,7 @@ This project is built on __Raspberry Pi 3B+__ with __Raspbian OS__ and __Python 
 
 - ### 5. Control it from your gadget
 
-You can also control it via your laptop, tablet or even a smartphone. First connect your gadget to a WiFi which your Raspberry Pi is connected to. Open your browser & go to your Pi's IP address on port ```5000```, for example: http://123.456.78.910:5000. You'll see something similar with your Pi display & try to play with it. Enjoy!
+    You can also control it via your laptop, tablet or even a smartphone. First connect your gadget to a WiFi which your Raspberry Pi is connected to. Open your browser & go to your Pi's IP address on port ```5000```, for example: http://123.456.78.910:5000. You'll see something similar with your Pi display & try to play with it. Enjoy!
 
 <hr>
 
