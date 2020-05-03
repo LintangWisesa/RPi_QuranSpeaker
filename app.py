@@ -52,8 +52,8 @@ def surah_changed(message):
     # print(ayats)
 
     for i in ayats:
-        mixer.music.load('C:/Users/HP/Downloads/RasPi_Quran_MP3/mp3/{}.mp3'.format(i))
-        # mixer.music.load('/home/pi/RasPi_Quran_MP3/mp3/{}.mp3'.format(i))
+        # mixer.music.load('C:/Users/HP/Downloads/RasPi_Quran_MP3/mp3/{}.mp3'.format(i))
+        mixer.music.load('/home/pi/RPi_QuranSpeaker/mp3/{}.mp3'.format(i))
         mixer.music.play()
         while mixer.music.get_busy():
             time.Clock().tick(10)
@@ -65,8 +65,8 @@ def juz_changed(message):
     emit('update juz', message, broadcast=True)
     print(message)
 
-    mixer.music.load('C:/Users/HP/Downloads/RasPi_Quran_MP3/mp3/{}.mp3'.format(message['juzval']))
-    # mixer.music.load('/home/pi/RasPi_Quran_MP3/mp3/{}.mp3'.format(message['juzval']))
+    # mixer.music.load('C:/Users/HP/Downloads/RasPi_Quran_MP3/mp3/{}.mp3'.format(message['juzval']))
+    mixer.music.load('/home/pi/RPi_QuranSpeaker/mp3/{}.mp3'.format(message['juzval']))
     mixer.music.play()
     # while mixer.music.get_busy(): 
     #     time.Clock().tick(10)
@@ -76,8 +76,8 @@ def stop(message):
     print(message)
     # while mixer.music.get_busy():
     mixer.music.stop()
-    mixer.music.load('C:/Users/HP/Downloads/RasPi_Quran_MP3/mp3_adab/tashdiq.mp3')
-    # mixer.music.load('/home/pi/RasPi_Quran_MP3/mp3_adab/tashdiq.mp3')
+    # mixer.music.load('C:/Users/HP/Downloads/RasPi_Quran_MP3/mp3_adab/tashdiq.mp3')
+    mixer.music.load('/home/pi/RPi_QuranSpeaker/mp3_adab/tashdiq.mp3')
     mixer.music.play()
     while mixer.music.get_busy():
         time.Clock().tick(10)
@@ -85,8 +85,8 @@ def stop(message):
 if __name__ == '__main__':
     socketio.run(
         app, 
-        # host="192.168.43.163", 
-        # port="5000", 
+        host="192.168.43.66", 
+        port=5000, 
         log_output=True, 
         debug=True, 
         use_reloader=True
