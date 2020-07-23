@@ -1,3 +1,5 @@
+from os.path import dirname, join as pathjoin
+
 # pip install flask flask-socketio eventlet gevent gevent-websocket
 from flask import Flask, render_template, url_for
 from flask_socketio import SocketIO, emit
@@ -12,6 +14,8 @@ value = {
     'text': 'Speaker Quran',
     'now': "I'm Ready ..."
 }
+
+root_dir = dirname(__file__)
 
 @app.route('/')
 def index():
@@ -52,8 +56,8 @@ def surah_changed(message):
     # print(ayats)
 
     for i in ayats:
-        # mixer.music.load('C:/Users/HP/Downloads/RasPi_Quran_MP3/mp3/{}.mp3'.format(i))
-        mixer.music.load('/home/pi/RPi_QuranSpeaker/mp3/{}.mp3'.format(i))
+        file_name = pathjoin(root_dir, 'mp3', '{}.mp3'.format(i))
+        mixer.music.load(file_name)
         mixer.music.play()
         while mixer.music.get_busy():
             time.Clock().tick(10)
@@ -65,8 +69,8 @@ def juz_changed(message):
     emit('update juz', message, broadcast=True)
     print(message)
 
-    # mixer.music.load('C:/Users/HP/Downloads/RasPi_Quran_MP3/mp3/{}.mp3'.format(message['juzval']))
-    mixer.music.load('/home/pi/RPi_QuranSpeaker/mp3/{}.mp3'.format(message['juzval']))
+    file_name = pathjoin(root_dir, 'mp3', '{}.mp3'.format(message['juzval']))
+    mixer.music.load(file_name)
     mixer.music.play()
     # while mixer.music.get_busy(): 
     #     time.Clock().tick(10)
@@ -76,18 +80,18 @@ def stop(message):
     print(message)
     # while mixer.music.get_busy():
     mixer.music.stop()
-    # mixer.music.load('C:/Users/HP/Downloads/RasPi_Quran_MP3/mp3_adab/tashdiq.mp3')
-    mixer.music.load('/home/pi/RPi_QuranSpeaker/mp3_adab/tashdiq.mp3')
+    file_name = pathjoin(root_dir, 'mp3_adab', 'tashdiq.mp3')
+    mixer.music.load(file_name)
     mixer.music.play()
     while mixer.music.get_busy():
         time.Clock().tick(10)
 
 if __name__ == '__main__':
     socketio.run(
-        app, 
-        host="192.168.43.66", 
-        port=5000, 
-        log_output=True, 
-        debug=True, 
+        app,
+        host="0.0.0.0",
+        port=5000,
+        log_output=True,
+        debug=True,
         use_reloader=True
     )

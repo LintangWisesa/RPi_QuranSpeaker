@@ -3,7 +3,7 @@ $(document).ready(function() {
          
     // sending a connect request to the server.
     // var socket = io.connect('http://localhost:5000');
-    var socket = io.connect('http://192.168.43.66:5000');
+    var socket = io.connect('http://' + window.location.host);
   
     // An event handler for submit button & get input value 
     $('#playsurah').on('click', function(event) {
