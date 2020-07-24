@@ -50,12 +50,12 @@ This project is built on __Raspberry Pi 3B+__ with __Raspbian OS__ and __Python 
     Clone this project from my github repo. [Download here](https://github.com/LintangWisesa/RPi_QuranSpeaker) or clone it from your terminal (make sure you've installed *__git__* on your Pi):
 
     ```bash
-    $ git clone https://github.com/LintangWisesa/RPi_QuranSpeaker
+    $ git clone <repo_url>
     ```
     
 <hr>
 
-- ### 3. Download files & install packages
+- ### 3. (Optional) Download files & install packages
 
     Create ```mp3``` folder on this project's root, then download Qur'an Audio files (_.mp3_) from links above. Then put them into ```mp3``` folder inside this project root folder.
 
@@ -65,10 +65,12 @@ This project is built on __Raspberry Pi 3B+__ with __Raspbian OS__ and __Python 
     $ mkdir mp3
     ```
 
+    Note: You do not have to download mp3 files if you will only use the Stream option.
+
     Also install Python packages needed through __*pip*__:
 
     ```bash
-    $ pip3 install flask flask-socketio eventlet gevent gevent-websocket
+    $ pip3 install flask flask-socketio eventlet gevent gevent-websocket python-vlc
     ```
 
 <hr>
@@ -101,3 +103,6 @@ This project is built on __Raspberry Pi 3B+__ with __Raspbian OS__ and __Python 
 [LinkedIn](https://www.linkedin.com/in/lintangwisesa/) | 
 :octocat: [GitHub](https://github.com/LintangWisesa) |
 [Hackster](https://www.hackster.io/lintangwisesa)
+
+For stream functionality, please contact Hossam Hammady on Twitter: [@hammady](https://twitter.com/hammady), or GitHub: [github.com/hammady](https://github.com/hammady).
+

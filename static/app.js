@@ -2,7 +2,6 @@
 $(document).ready(function() {
          
     // sending a connect request to the server.
-    // var socket = io.connect('http://localhost:5000');
     var socket = io.connect('http://' + window.location.host);
   
     // An event handler for submit button & get input value 
@@ -23,7 +22,17 @@ $(document).ready(function() {
         });
         return false;
     });
-    
+
+    $('#playstream').on('click', function (event) {
+        socket.emit('playstream', {
+            sheikh: $('.streamsheikh option:selected').text(),
+            sheikhval: $('.streamsheikh').val(),
+            surah: $('.streamsura option:selected').text(),
+            surahval: $('.streamsura').val()
+        });
+        return false;
+    });
+
     // event 'after connect'   
     socket.on('after connect', function(msg) {
         console.log('After connect', msg);
@@ -42,15 +51,14 @@ $(document).ready(function() {
         $('#now').text(msg.juz);
     });
 
-    // stop
-    $('#stopsurah').on('click', function(event) {
-        socket.emit('stop', {
-            stop: 'stop',
-        });
-        return false;
+    socket.on('update stream', function (msg) {
+        console.log('Value updated');
+        $('#textoutput').text(msg.surah);
+        $('#now').text(msg.sheikh);
     });
 
-    $('#stopjuz').on('click', function(event) {
+    // stop
+    $('.stop').on('click', function(event) {
         socket.emit('stop', {
             stop: 'stop',
         });

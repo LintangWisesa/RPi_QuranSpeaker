@@ -57,6 +57,7 @@
                     <div class="row nav nav-tabs" id="nav-tab" role="tablist">
                         <a class="col-sm-6 nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Ayat آية</a>
                         <a class="col-sm-6 nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Juz الجزء</a>
+                        <a class="col-sm-6 nav-item nav-link" id="nav-stream-tab" data-toggle="tab" href="#nav-stream" role="tab" aria-controls="nav-stream" aria-selected="false">Stream</a>
                     </div>
                 </nav>
 
@@ -217,7 +218,7 @@
                             <i class="fas fa-play"></i>&nbsp;
                             Play
                         </button>
-                        <button id="stopsurah" type="button" class="btn btn-danger">
+                        <button id="stopsurah" type="button" class="stop btn btn-danger">
                             <i class="fas fa-stop"></i>&nbsp;
                             Stop
                         </button>
@@ -229,12 +230,12 @@
 
                         <h5 class="mt-3 mb-3">Play MP3 Qur'an per juz (30 juz)</h5>
                         
-                        <!-- select surah -->
+                        <!-- select juz -->
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <label class="input-group-text" for="inputGroupSelect01">Juz</label>
+                                <label class="input-group-text" for="inputGroupSelect02">Juz</label>
                             </div>
-                            <select class="juz custom-select" id="inputGroupSelect01">
+                            <select class="juz custom-select" id="inputGroupSelect02">
                                 <option selected disabled value="">Pilih juz ...</option>
                                 <option value="1">Juz 1</option>
                                 <option value="2">Juz 2</option>
@@ -276,12 +277,203 @@
                             <i class="fas fa-play"></i>&nbsp;
                             Play
                         </button>
-                        <button id="stopjuz" type="button" class="btn btn-danger">
+                        <button id="stopjuz" type="button" class="stop btn btn-danger">
                             <i class="fas fa-stop"></i>&nbsp;
                             Stop
                         </button>
 
                     </div>
+
+                    <!-- tab stream konten -->
+                    <div class="tab-pane fade" id="nav-stream" role="tabpanel" aria-labelledby="nav-stream-tab">
+                    
+                        <h5 class="mt-3 mb-3">Stream MP3 Qur'an from quranicaudio.com</h5>
+
+                        <!-- select sheikh -->
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect03">Sheikh</label>
+                            </div>
+                            <select class="streamsheikh custom-select" id="inputGroupSelect03">
+                                <option selected disabled value="">Pilih sheikh ...</option>
+	                            <option value="quran|muhammad_siddeeq_al-minshaawee">Minshawi Murattal</option>
+	                            <option value="quran|mahmood_khaleel_al-husaree">Husary</option>
+	                            <option value="quran|abdurrahmaan_as-sudays">Abdurrahman As-Sudais</option>
+	                            <option value="quran|nasser_bin_ali_alqatami">Nasser Al Qatami</option>
+	                            <option value="quran|abdul_basit_murattal">Abd Al-Basit</option>
+	                            <option value="quran|abdulbaset_mujawwad">Abd Al-Basit Mujawwad</option>
+	                            <option value="quran|aziz_alili">Aziz Alili</option>
+	                            <option value="quran|salahbudair">Salah Budair</option>
+	                            <option value="quran|sa3ood_al-shuraym">Saood Ash-Shuraym</option>
+	                            <option value="quran|yasser_ad-dussary">Yasser Ad-Dussary</option>
+	                            <option value="quran|mohammad_altablawi">Mohammad al Tablawy</option>
+	                            <option value="quran|sahl_yaaseen">Sahl Yaseen</option>
+	                            <option value="quran|abu_bakr_ash-shaatree">Abu Bakr Ash-Shatri</option>
+	                            <option value="quran|ahmad_nauina">Ahmad Nauina</option>
+	                            <option value="quran|akram_al_alaqmi">Akram Al-Alaqmi</option>
+	                            <option value="quran|ali_hajjaj_alsouasi">Ali Hajjaj Alsouasi</option>
+	                            <option value="quran|sa3d_al-ghaamidi/complete/128kbps">Saad Al-Ghamdi</option>
+	                            <option value="quran|bandar_baleela/complete">Bandar Baleela</option>
+	                            <option value="quran|mahmood_ali_albana">Mahmoud Ali al Bana</option>
+	                            <option value="quran|abdulrahman_al_shahat">Abdulrahman Al-Shahat</option>
+	                            <option value="quran|abdurrashid_sufi/128kbps">Abdur-Rashid Sufi</option>
+	                            <option value="quran|mostafa_ismaeel/128kbps">Mostafa Ismaeel</option>
+	                            <option value="quran|mahmood_khaleel_al-husaree_iza3a/128kbps">Husary Broadcast</option>
+	                            <option value="quran|abdulaziz_bin_saleh_alzahrani">Abdulaziz Az-Zahrani</option>
+	                            <option value="quran|mishaari_raashid_al_3afaasee">Mishary Al-Afasy</option>
+	                            <option value="quran|rifai">Hani Ar-Rifai</option>
+	                            <option value="quran|muhammad_ayyoob">Muhammad Ayyoub</option>
+	                            <option value="quran|mishaari_w_ibrahim_walk_si">Mishari with Ibrahim Walk (English, gapless)</option>
+	                            <option value="quran|muhammad_jibreel/complete/reencoded">Muhammad Jibreel</option>
+	                            <option value="quran|abdullaah_basfar/archive">Abdullah Basfar</option>
+	                            <option value="quran|ibrahim_walk">Ibrahim Walk (English, gapless)</option>
+	                            <option value="quran|mishaari_california">Mishari Al-Afasy (California, gapless)</option>
+	                            <option value="quran|ahmed_ibn_3ali_al-3ajamy">Ahmed ibn Ali al-Ajamy</option>
+	                            <option value="quran|ali_jaber">Ali Jaber</option>
+	                            <option value="tvquran|maher_al_mu3aiqly">Maher Al Muaiqly</option>
+	                            <option value="quran|abdullaah_3awwaad_al-juhaynee/mobile">Abdullah al Juhany</option>
+	                            <option value="quran|abdul_muhsin_alqasim">AbdulMuhsin al Qasim</option>
+                            </select>
+                        </div>
+
+                        <!-- select surah -->
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect04">Surah</label>
+                            </div>
+                            <select class="streamsura custom-select" id="inputGroupSelect04">
+                                <option selected disabled value="">Pilih surah ...</option>
+                                <option value="1">1. Surah Al-Fatihah الفاتحة</option>
+                                <option value="2">2. Surah Al-Baqarah البقرة</option>
+                                <option value="3">3. Surah Ali 'Imran آل عمران</option>
+                                <option value="4">4. Surah An-Nisa' النّساء</option>
+                                <option value="5">5. Surah Al-Ma'idah المائدة</option>
+                                <option value="6">6. Surah Al-An'am الانعام</option>
+                                <option value="7">7. Surah Al-A’raf الأعراف</option>
+                                <option value="8">8. Surah Al-Anfal الأنفال</option>
+                                <option value="9">9. Surah At-Taubah التوبة‎‎</option>
+                                <option value="10">10. Surah Yunus يونس</option>
+                                <option value="11">11. Surah Hud هود</option>
+                                <option value="12">12. Surah Yusuf يوسف</option>
+                                <option value="13">13. Surah Ar-Ra’d الرعد</option>
+                                <option value="14">14. Surah Ibrahim إبراهيم</option>
+                                <option value="15">15. Surah Al-Hijr الحجر</option>
+                                <option value="16">16. Surah An-Nahl النحل</option>
+                                <option value="17">17. Surah Al-Isra' الإسراء</option>
+                                <option value="18">18. Surah Al-Kahf الكهف</option>
+                                <option value="19">19. Surah Maryam مريم</option>
+                                <option value="20">20. Surah Ta Ha طه</option>
+                                <option value="21">21. Surah Al-Anbiya الأنبياء</option>
+                                <option value="22">22. Surah Al-Hajj الحجّ</option>
+                                <option value="23">23. Surah Al-Mu’minun المؤمنون</option>
+                                <option value="24">24. Surah An-Nur النور</option>
+                                <option value="25">25. Surah Al-Furqan الفرقان</option>
+                                <option value="26">26. Surah Asy-Syu'ara' الشعراء</option>
+                                <option value="27">27. Surah An-Naml النمل</option>
+                                <option value="28">28. Surah Al-Qasas القصص</option>
+                                <option value="29">29. Surah Al-'Ankabut العنكبوت</option>
+                                <option value="30">30. Surah Ar-Rum الروم</option>
+                                <option value="31">31. Surah Luqman لقمان</option>
+                                <option value="32">32. Surah As-Sajdah السجدة</option>
+                                <option value="33">33. Surah Al-Ahzab الْأحزاب</option>
+                                <option value="34">34. Surah Saba’ سبأ</option>
+                                <option value="35">35. Surah Fatir فاطر</option>
+                                <option value="36">36. Surah Ya Sin يس</option>
+                                <option value="37">37. Surah As-Saffat الصافات</option>
+                                <option value="38">38. Surah Sad ص</option>
+                                <option value="39">39. Surah Az-Zumar الزمر</option>
+                                <option value="40">40. Surah Ghafir غافر</option>
+                                <option value="41">41. Surah Fussilat فصلت</option>
+                                <option value="42">42. Surah Asy-Syura الشورى</option>
+                                <option value="43">43. Surah Az-Zukhruf الزخرف</option>
+                                <option value="44">44. Surah Ad-Dukhan الدخان</option>
+                                <option value="45">45. Surah Al-Jasiyah الجاثية</option>
+                                <option value="46">46. Surah Al-Ahqaf الَأحقاف</option>
+                                <option value="47">47. Surah Muhammad محمد</option>
+                                <option value="48">48. Surah Al-Fath الفتح</option>
+                                <option value="49">49. Surah Al-Hujurat الحجرات</option>
+                                <option value="50">50. Surah Qaf ق</option>
+                                <option value="51">51. Surah Az-Zariyat الذاريات</option>
+                                <option value="52">52. Surah At-Tur الطور</option>
+                                <option value="53">53. Surah An-Najm النجم</option>
+                                <option value="54">54. Surah Al-Qamar القمر</option>
+                                <option value="55">55. Surah Ar-Rahman الرحمن</option>
+                                <option value="56">56. Surah Al-Waqi’ah الواقعة</option>
+                                <option value="57">57. Surah Al-Hadid الحديد</option>
+                                <option value="58">58. Surah Al-Mujadilah المجادلة</option>
+                                <option value="59">59. Surah Al-Hasyr الحشر</option>
+                                <option value="60">60. Surah Al-Mumtahanah الممتحنة</option>
+                                <option value="61">61. Surah As-Saff الصف</option>
+                                <option value="62">62. Surah Al-Jumu’ah الجمعة</option>
+                                <option value="63">63. Surah Al-Munafiqun المنافقون</option>
+                                <option value="64">64. Surah At-Tagabun التغابن</option>
+                                <option value="65">65. Surah At-Talaq الطلاق</option>
+                                <option value="66">66. Surah At-Tahrim التحريم</option>
+                                <option value="67">67. Surah Al-Mulk الملك</option>
+                                <option value="68">68. Surah Al-Qalam القلم</option>
+                                <option value="69">69. Surah Al-Haqqah الحآقة</option>
+                                <option value="70">70. Surah Al-Ma’arij المعارج</option>
+                                <option value="71">71. Surah Nuh نوح</option>
+                                <option value="72">72. Surah Al-Jinn الجن</option>
+                                <option value="73">73. Surah Al-Muzzammil المزمل</option>
+                                <option value="74">74. Surah Al-Muddassir المدثر</option>
+                                <option value="75">75. Surah Al-Qiyamah القيامة</option>
+                                <option value="76">76. Surah Al-Insan الإنسان</option>
+                                <option value="77">77. Surah Al-Mursalat المرسلات</option>
+                                <option value="78">78. Surah An-Naba’ النبأ</option>
+                                <option value="79">79. Surah An-Nazi’at النازعات</option>
+                                <option value="80">80. Surah 'Abasa عبس</option>
+                                <option value="81">81. Surah At-Takwir التكوير</option>
+                                <option value="82">82. Surah Al-Infitar الإنفطار</option>
+                                <option value="83">83. Surah Al-Tatfif المطففين</option>
+                                <option value="84">84. Surah Al-Insyiqaq الإنشقاق</option>
+                                <option value="85">85. Surah Al-Buruj البروج</option>
+                                <option value="86">86. Surah At-Tariq الطارق</option>
+                                <option value="87">87. Surah Al-A’la الأعلى</option>
+                                <option value="88">88. Surah Al-Gasyiyah الغاشية</option>
+                                <option value="89">89. Surah Al-Fajr الفجر</option>
+                                <option value="90">90. Surah Al-Balad البلد</option>
+                                <option value="91">91. Surah Asy-Syams الشمس</option>
+                                <option value="92">92. Surah Al-Lail اليل</option>
+                                <option value="93">93. Surah Ad-Duha الضحى‎‎</option>
+                                <option value="94">94. Surah Al-Insyirah الإنشراح‎‎</option>
+                                <option value="95">95. Surah At-Tin التينِ</option>
+                                <option value="96">96. Surah Al-'Alaq العلق</option>
+                                <option value="97">97. Surah Al-Qadr القدرِ</option>
+                                <option value="98">98. Surah Al-Bayyinah البينة</option>
+                                <option value="99">99. Surah Az-Zalzalah الزلزلة‎‎</option>
+                                <option value="100">100. Surah Al-'Adiyat العاديات‎‎</option>
+                                <option value="101">101. Surah Al-Qari'ah القارعة‎‎</option>
+                                <option value="102">102. Surah At-Takasur التكاثر‎‎</option>
+                                <option value="103">103. Surah Al-'Asr العصر</option>
+                                <option value="104">104. Surah Al-Humazah الهمزة‎‎</option>
+                                <option value="105">105. Surah Al-Fil الفيل</option>
+                                <option value="106">106. Surah Quraisy قريش</option>
+                                <option value="107">107. Surah Al-Ma’un الماعون</option>
+                                <option value="108">108. Surah Al-Kausar الكوثر</option>
+                                <option value="109">109. Surah Al-Kafirun الكافرون</option>
+                                <option value="110">110. Surah An-Nasr النصر‎‎</option>
+                                <option value="111">111. Surah Al-Lahab اللهب‎‎</option>
+                                <option value="112">112. Surah Al-Ikhlas الإخلاص‎‎</option>
+                                <option value="113">113. Surah Al-Falaq الفلق</option>
+                                <option value="114">114. Surah An-Nas الناس</option>
+                            </select>
+                        </div>
+                                        
+                        <!-- buttons -->
+                        <hr>
+                    
+                        <button id="playstream" type="button" class="btn btn-success">
+                            <i class="fas fa-play"></i>&nbsp;
+                            Play
+                        </button>
+                        <button id="stopstream" type="button" class="stop btn btn-danger">
+                            <i class="fas fa-stop"></i>&nbsp;
+                            Stop
+                        </button>
+                    
+                    </div>
+
                 </div>
 
             </div>

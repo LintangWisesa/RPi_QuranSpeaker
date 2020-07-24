@@ -17,3 +17,4 @@ six==1.15.0
 Werkzeug==1.0.1
 zope.event==4.4
 zope.interface==5.1.0
+python-vlc==3.0.10114
