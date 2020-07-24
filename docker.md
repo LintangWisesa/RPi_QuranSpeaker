@@ -4,9 +4,10 @@
 
 Install Docker and Docker Compose using [this](https://dev.to/rohansawant/installing-docker-and-docker-compose-on-the-raspberry-pi-in-5-simple-steps-3mgl) guide.
 
-### 2. Download mp3 files
+### 2. (Optional) Download mp3 files
 
 Follow the same instructions in the original tutorial.
+You can skip this step if you are going to use the streaming option only.
 
 ### 3. Build and run
 
