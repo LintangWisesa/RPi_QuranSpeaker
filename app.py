@@ -11,7 +11,29 @@ mixer.init()
 app = Flask(__name__)
 socketio = SocketIO(app)
 vlc_instance = vlc.Instance()
-vlc_player = vlc_instance.media_player_new()
+vlc_player = None
+base_url = None
+stream_stopped = True
+
+def vlc_action_stopped(event):
+    global stream_stopped
+    if not stream_stopped:
+        generate_and_play_list(1, 114)
+
+def generate_and_play_list(from_surah, to_surah):
+    global base_url, vlc_player
+    vlc_player = vlc_instance.media_player_new()
+    vlc_events = vlc_player.event_manager()
+    vlc_events.event_attach(vlc.EventType.MediaPlayerStopped, vlc_action_stopped)
+    list_player = vlc_instance.media_list_player_new()
+    list_player.set_media_player(vlc_player)
+    media_list = vlc_instance.media_list_new()
+    list_player.set_media_list(media_list)
+    for aya in range(from_surah, to_surah + 1):
+        url = base_url.format(str(aya).zfill(3))
+        media = vlc_instance.media_new(url)
+        media_list.add_media(media)
+    list_player.play()
 
 value = {
     'text': 'Speaker Quran',
@@ -65,28 +87,25 @@ def juz_changed(message):
     # while mixer.music.get_busy(): 
     #     time.Clock().tick(10)
 
-def play_stream(url):
-    media = vlc_instance.media_new(url)
-    vlc_player.set_media(media)
-    vlc_player.play()
-
 @socketio.on('playstream')
 def stream_changed(message):
+    global base_url, stream_stopped
     emit('update stream', message, broadcast=True)
     value['text'] = message['surah']
     print("Message received: {}".format(message))
 
     mirror, sheikh = message['sheikhval'].split('|')
     subdomain = 'download' if mirror == 'quran' else 'mirrors'
-    base_url = 'https://{}.quranicaudio.com/{}/{}'.format(subdomain, mirror, sheikh)
+    base_url = 'https://{}.quranicaudio.com/{}/{}/{{}}.mp3'.format(subdomain, mirror, sheikh)
     
-    nosurat = message['surahval'].zfill(3)
-    url = "{}/{}.mp3".format(base_url, nosurat) 
-    print("Playing {}...".format(url), flush=True)
-    play_stream(url)
+    nosurat = int(message['surahval'])
+    stream_stopped = False
+    generate_and_play_list(nosurat, 114)
     
 @socketio.on('stop')
 def stop(message):
+    global stream_stopped, vlc_player
+    stream_stopped = True
     # while mixer.music.get_busy():
     mixer.music.stop()
     vlc_player.stop()
