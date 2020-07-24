@@ -31,27 +31,14 @@ def surah_changed(message):
     value['text'] = message['surah']
     print(message)
 
-    nosurat = int(message['surahval'])
+    nosurat = message['surahval'].zfill(3)
     awalayat = int(message['awal'])
     akhirayat = int(message['akhir'])
-
-    if nosurat < 10:
-        nosurat = '00' + str(nosurat)
-    elif nosurat >= 10 and nosurat < 100:
-        nosurat = '0' + str(nosurat)
-    else:
-        nosurat = str(nosurat)
 
     ayats = []
     ayats.append(nosurat + '000')
     for i in range(awalayat, akhirayat + 1):
-        if i < 10:
-            i = nosurat + '00' + str(i)
-        elif i >= 10 and i < 100:
-            i = nosurat + '0' + str(i)
-        else:
-            i = nosurat + str(i)
-        ayats.append(i)
+        ayats.append(nosurat + f"{i:03}")
 
     # print(ayats)
 
@@ -75,8 +62,23 @@ def juz_changed(message):
     # while mixer.music.get_busy(): 
     #     time.Clock().tick(10)
 
+@socketio.on('playstream')
+def stream_changed(message):
+    emit('update stream', message, broadcast=True)
+    value['text'] = message['surah']
+    print("Message received: {}".format(message))
+
+    mirror, sheikh = message['sheikhval'].split('|')
+    subdomain = 'download' if mirror == 'quran' else 'mirrors'
+    base_url = 'https://{}.quranicaudio.com/{}/{}'.format(subdomain, mirror, sheikh)
+    
+    nosurat = message['surahval'].zfill(3)
+    print("Playing {}/{}.mp3...".format(base_url, nosurat), flush=True)
+    # TODO actual playing using vlc
+    
 @socketio.on('stop')
 def stop(message):
+    # TODO actual stopping for vlc, after casing
     print(message)
     # while mixer.music.get_busy():
     mixer.music.stop()
