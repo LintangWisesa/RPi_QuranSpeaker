@@ -21,6 +21,14 @@ Speaker Al-Qur'an dengan fitur melantunkan ayat suci Al-Qur'an per ayat/per juz 
 
 <hr>
 
+## 🐳 Docker Tutorial
+
+If you prefer running the project using Docker for an isolated setup
+and a rather simpler installation steps, please follow the Docker guide
+[here](docker.md).
+
+<hr>
+
 ## 📋 Project Tutorial
 
 This project is built on __Raspberry Pi 3B+__ with __Raspbian OS__ and __Python 3.x__ (I'm using 3.4 & 3.8). So make sure you've installed Python 3.x also __git__ to clone this project from my github.
@@ -65,48 +73,7 @@ This project is built on __Raspberry Pi 3B+__ with __Raspbian OS__ and __Python 
 
 <hr>
 
-- ### 4. Insert your IP on the app
-
-    You have to insert your IP address on 2 places: ```app.py``` and ```/static/app.js```. First, insert your IP address on ```app.py``` file. Open terminal then do these steps.
-
-    ```bash
-    $ sudo nano app.py
-    ```
-
-    Put your IP address on its last line (```app.py```):
-
-    ```python
-    if __name__ == '__main__':
-        socketio.run(
-            app, 
-            host = "123.456.78.910",     # your IP address
-            port = 5000, 
-            log_output = True, 
-            debug = True, 
-            use_reloader = True
-        )
-    ```
-
-    Second, go to ```/static``` then insert your Pi's IP address on ```app.js``` file.
-
-    ```bash
-    $ cd static
-
-    $ sudo nano app.js
-    ```
-
-    Insert your IP address on the following line (```app.js```):
-
-    ```javascript
-    var socket = io.connect('http://123.456.78.910:5000') 
-    // change with your RPi IP address & port 5000
-    ```
-
-    Exit & save it!
-
-<hr>
-
-- ### 5. Run Flask application
+- ### 4. Run Flask application
 
     Go back to the project root, then run its server application (```app.py``` file).
 
