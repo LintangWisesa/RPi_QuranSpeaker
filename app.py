@@ -1,4 +1,4 @@
-from os.path import dirname, join as pathjoin
+from os.path import dirname, abspath, join as pathjoin
 
 # pip install flask flask-socketio eventlet gevent gevent-websocket
 from flask import Flask, render_template, url_for
@@ -40,7 +40,8 @@ value = {
     'now': "I'm Ready ..."
 }
 
-root_dir = dirname(__file__)
+root_dir = dirname(abspath(__file__))
+print("Running from {}".format(root_dir), flush=True)
 
 @app.route('/')
 def index():
