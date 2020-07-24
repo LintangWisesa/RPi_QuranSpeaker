@@ -15,7 +15,8 @@ RUN  apt-get update && \
        python3-numpy \
        subversion \
        libportmidi-dev \
-       libfreetype6-dev && \
+       libfreetype6-dev \
+       vlc && \
      rm -rf /var/lib/apt/lists/*
 
 # upgrade pip itself

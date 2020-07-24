@@ -5,10 +5,13 @@ from flask import Flask, render_template, url_for
 from flask_socketio import SocketIO, emit
 import time as delay
 from pygame import mixer, time
+import vlc
 
 mixer.init()
 app = Flask(__name__)
 socketio = SocketIO(app)
+vlc_instance = vlc.Instance()
+vlc_player = vlc_instance.media_player_new()
 
 value = {
     'text': 'Speaker Quran',
@@ -62,6 +65,11 @@ def juz_changed(message):
     # while mixer.music.get_busy(): 
     #     time.Clock().tick(10)
 
+def play_stream(url):
+    media = vlc_instance.media_new(url)
+    vlc_player.set_media(media)
+    vlc_player.play()
+
 @socketio.on('playstream')
 def stream_changed(message):
     emit('update stream', message, broadcast=True)
@@ -73,15 +81,15 @@ def stream_changed(message):
     base_url = 'https://{}.quranicaudio.com/{}/{}'.format(subdomain, mirror, sheikh)
     
     nosurat = message['surahval'].zfill(3)
-    print("Playing {}/{}.mp3...".format(base_url, nosurat), flush=True)
-    # TODO actual playing using vlc
+    url = "{}/{}.mp3".format(base_url, nosurat) 
+    print("Playing {}...".format(url), flush=True)
+    play_stream(url)
     
 @socketio.on('stop')
 def stop(message):
-    # TODO actual stopping for vlc, after casing
-    print(message)
     # while mixer.music.get_busy():
     mixer.music.stop()
+    vlc_player.stop()
     file_name = pathjoin(root_dir, 'mp3_adab', 'tashdiq.mp3')
     mixer.music.load(file_name)
     mixer.music.play()
