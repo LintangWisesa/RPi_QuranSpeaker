@@ -9,22 +9,34 @@ import vlc
 
 mixer.init()
 app = Flask(__name__)
-socketio = SocketIO(app)
+# use async_mode='threading' to work outside of an http context (vlc events)
+socketio = SocketIO(app, async_mode='threading')
 vlc_instance = vlc.Instance()
 vlc_player = None
 base_url = None
-stream_stopped = True
+stream_status = {
+    'playback': 'stopped',
+    'sheikh': None,
+    'surah': None
+}
 
 def vlc_action_stopped(event):
-    global stream_stopped
-    if not stream_stopped:
+    global stream_status
+    if stream_status['playback'] != 'stopped':
         generate_and_play_list(1, 114)
 
+def vlc_action_media_changed(event):
+    global stream_status
+    stream_status['surah'] = stream_status['surah'] + 1
+    broadcast_stream_status()
+
 def generate_and_play_list(from_surah, to_surah):
-    global base_url, vlc_player
+    global base_url, vlc_player, stream_status
+    stream_status['surah'] = from_surah - 1
     vlc_player = vlc_instance.media_player_new()
     vlc_events = vlc_player.event_manager()
     vlc_events.event_attach(vlc.EventType.MediaPlayerStopped, vlc_action_stopped)
+    vlc_events.event_attach(vlc.EventType.MediaPlayerMediaChanged, vlc_action_media_changed)
     list_player = vlc_instance.media_list_player_new()
     list_player.set_media_player(vlc_player)
     media_list = vlc_instance.media_list_new()
@@ -43,13 +55,17 @@ value = {
 root_dir = dirname(abspath(__file__))
 print("Running from {}".format(root_dir), flush=True)
 
+def broadcast_stream_status():
+    # use socketio.emit to work outside of an http context (vlc events)
+    socketio.emit('stream_status',  {'status': stream_status}, broadcast=True)
+
 @app.route('/')
 def index():
     return render_template('app.html', **value)
 
 @socketio.on('connect')
 def test_connect():
-    emit('after connect',  {'data':'Connected!'})
+    broadcast_stream_status()
 
 @socketio.on('playsurah')
 def surah_changed(message):
@@ -90,31 +106,46 @@ def juz_changed(message):
 
 @socketio.on('playstream')
 def stream_changed(message):
-    global base_url, stream_stopped
+    global base_url, stream_status
     emit('update stream', message, broadcast=True)
     value['text'] = message['surah']
     print("Message received: {}".format(message))
 
-    mirror, sheikh = message['sheikhval'].split('|')
+    mirror, sheikh = message['sheikh'].split('|')
     subdomain = 'download' if mirror == 'quran' else 'mirrors'
     base_url = 'https://{}.quranicaudio.com/{}/{}/{{}}.mp3'.format(subdomain, mirror, sheikh)
     
-    nosurat = int(message['surahval'])
-    stream_stopped = False
+    nosurat = int(message['surah'])
+    
+    stream_status['playback'] = 'playing'
+    stream_status['sheikh'] = message['sheikh']
+    
     generate_and_play_list(nosurat, 114)
+    # the vlc event media changed will increment surah and broadcast status
     
 @socketio.on('stop')
 def stop(message):
-    global stream_stopped, vlc_player
-    stream_stopped = True
+    global stream_status, vlc_player
+    stream_status['playback'] = 'stopped'
+    broadcast_stream_status()
     # while mixer.music.get_busy():
     mixer.music.stop()
     vlc_player.stop()
     file_name = pathjoin(root_dir, 'mp3_adab', 'tashdiq.mp3')
     mixer.music.load(file_name)
     mixer.music.play()
-    while mixer.music.get_busy():
-        time.Clock().tick(10)
+    # while mixer.music.get_busy():
+    #     time.Clock().tick(10)
+
+@socketio.on('pausestream')
+def pause_stream(message):
+    global stream_status, vlc_player
+    if (vlc_player.get_state() == vlc.State.Paused):
+        stream_status['playback'] = 'playing'
+    else:
+        stream_status['playback'] = 'paused'
+    broadcast_stream_status()
+    vlc_player.pause()
 
 if __name__ == '__main__':
     socketio.run(
