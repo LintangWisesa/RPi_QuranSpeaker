@@ -1,6 +1,6 @@
 click==7.1.2
-dnspython==2.0.0
-eventlet==0.25.2
+dnspython==1.16.0
+eventlet==0.26.1
 Flask==1.1.2
 Flask-SocketIO==4.3.1
 gevent==20.6.2
@@ -10,11 +10,10 @@ itsdangerous==1.1.0
 Jinja2==2.11.2
 MarkupSafe==1.1.1
 monotonic==1.5
-pygame==1.9.6
 python-engineio==3.13.1
 python-socketio==4.6.0
+python-vlc==3.0.11115
 six==1.15.0
 Werkzeug==1.0.1
 zope.event==4.4
 zope.interface==5.1.0
-python-vlc==3.0.10114
