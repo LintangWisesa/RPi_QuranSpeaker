@@ -4,20 +4,14 @@
 
 ## 📋 Project Summary
 
-Klik gambar berikut untuk melihat video demo:
+Click the following picture to see the demo video:
 
 [![Video](https://img.youtube.com/vi/D82XjlrCjbE/0.jpg)](https://youtu.be/D82XjlrCjbE)
 
-Speaker Al-Qur'an dengan fitur melantunkan ayat suci Al-Qur'an per ayat/per juz serta dapat dikontrol secara wireless via WiFi. Dirancang dengan Raspberry Pi 3B+ & aplikasi Python-based: Flask, Eventlet, Gevent-websocket & Socket.io. File audio yang digunakan merupakan lantunan ayat suci Al-Qur'an oleh Syeikh Abdurrahmaan As-Sudais & Syeikh Mishary Rasyid.
+Qur'anic speaker for the online streaming of the Holy Qur'an. It can be controlled wirelessly via WiFi. Designed with Raspberry Pi 3B+/4B & Python: Flask, Eventlet, Gevent-websocket & Socket.io.
 
 - 📝 Source code & tutorial: 
-[klik di sini](https://github.com/LintangWisesa/RPi_QuranSpeaker)
-
-- 🎧 Audio Quran MP3 per ayat (Syeikh Abdurrahmaan As-Sudais):
-[klik di sini](https://everyayah.com/data/Abdurrahmaan_As-Sudais_64kbps/)
-
-- 🎧 Audio Quran MP3 per juz (Syeikh Mishary Rasyid):
-[klik di sini](https://ia800402.us.archive.org/16/items/MisharyRasyidPerJuz/Mishary/)
+[Click here](https://github.com/LintangWisesa/RPi_QuranSpeaker)
 
 <hr>
 
