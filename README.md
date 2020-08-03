@@ -79,9 +79,23 @@ This project is built on __Raspberry Pi 3B+__ with __Raspbian OS__ and __Python 
 
 <hr>
 
-- ### 5. Control it from your gadget
+- ### 5. Control it from other devices
 
-    You can also control it via your laptop, tablet or even a smartphone. First connect your gadget to a WiFi which your Raspberry Pi is connected to. Open your browser & go to your Pi's IP address on port ```5000```, for example: http://123.456.78.910:5000. You'll see something similar with your Pi display & try to play with it. Enjoy!
+    You can control it via your laptop, tablet or even a smartphone. First connect your device to a WiFi which your Raspberry Pi is connected to. Open your browser & go to your Pi's IP address on port ```5000```, for example: http://123.456.78.910:5000. You'll see something similar with your Pi display & try to play with it. Enjoy!
+
+<hr>
+
+- ### 6. Control it from other scripts
+
+    You can pause/resume playback from other scripts on the Pi by running the following:
+    ```bash
+    ./pauser.py
+    ```
+    This script will only pause if it is currently in playing mode, and will resume
+    only if it is in paused mode. If it is in stopped mode, it will do nothing.
+
+    This is beneficial if you want to pause/resume playback beofre/after playing
+    [Adhan](https://github.com/achaudhry/adhan) for example.
 
 <hr>
 
