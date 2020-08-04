@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from os.path import dirname, abspath, join as pathjoin
 
 # pip install flask flask-socketio eventlet gevent gevent-websocket

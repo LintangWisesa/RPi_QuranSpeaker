@@ -4,20 +4,14 @@
 
 ## 📋 Project Summary
 
-Klik gambar berikut untuk melihat video demo:
+Click the following picture to see the demo video:
 
 [![Video](https://img.youtube.com/vi/D82XjlrCjbE/0.jpg)](https://youtu.be/D82XjlrCjbE)
 
-Speaker Al-Qur'an dengan fitur melantunkan ayat suci Al-Qur'an per ayat/per juz serta dapat dikontrol secara wireless via WiFi. Dirancang dengan Raspberry Pi 3B+ & aplikasi Python-based: Flask, Eventlet, Gevent-websocket & Socket.io. File audio yang digunakan merupakan lantunan ayat suci Al-Qur'an oleh Syeikh Abdurrahmaan As-Sudais & Syeikh Mishary Rasyid.
+Qur'anic speaker for the online streaming of the Holy Qur'an. It can be controlled wirelessly via WiFi. Designed with Raspberry Pi 3B+/4B & Python: Flask, Eventlet, Gevent-websocket & Socket.io.
 
 - 📝 Source code & tutorial: 
-[klik di sini](https://github.com/LintangWisesa/RPi_QuranSpeaker)
-
-- 🎧 Audio Quran MP3 per ayat (Syeikh Abdurrahmaan As-Sudais):
-[klik di sini](https://everyayah.com/data/Abdurrahmaan_As-Sudais_64kbps/)
-
-- 🎧 Audio Quran MP3 per juz (Syeikh Mishary Rasyid):
-[klik di sini](https://ia800402.us.archive.org/16/items/MisharyRasyidPerJuz/Mishary/)
+[Click here](https://github.com/LintangWisesa/RPi_QuranSpeaker)
 
 <hr>
 
@@ -79,9 +73,23 @@ This project is built on __Raspberry Pi 3B+__ with __Raspbian OS__ and __Python 
 
 <hr>
 
-- ### 5. Control it from your gadget
+- ### 5. Control it from other devices
 
-    You can also control it via your laptop, tablet or even a smartphone. First connect your gadget to a WiFi which your Raspberry Pi is connected to. Open your browser & go to your Pi's IP address on port ```5000```, for example: http://123.456.78.910:5000. You'll see something similar with your Pi display & try to play with it. Enjoy!
+    You can control it via your laptop, tablet or even a smartphone. First connect your device to a WiFi which your Raspberry Pi is connected to. Open your browser & go to your Pi's IP address on port ```5000```, for example: http://123.456.78.910:5000. You'll see something similar with your Pi display & try to play with it. Enjoy!
+
+<hr>
+
+- ### 6. Control it from other scripts
+
+    You can pause/resume playback from other scripts on the Pi by running the following:
+    ```bash
+    ./pauser.py
+    ```
+    This script will only pause if it is currently in playing mode, and will resume
+    only if it is in paused mode. If it is in stopped mode, it will do nothing.
+
+    This is beneficial if you want to pause/resume playback beofre/after playing
+    [Adhan](https://github.com/achaudhry/adhan) for example.
 
 <hr>
 
