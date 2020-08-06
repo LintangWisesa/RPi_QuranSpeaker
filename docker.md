@@ -23,5 +23,5 @@ Then visit the page: `http://RPI_IP:5000/` where `RPI_IP` is your Raspberry Pi I
 ### 3. Control from other scripts
 
 ```bash
-docker-compose exec app ./pauser.py
+docker-compose exec app ./pauser.py <toggle|pause|resume>
 ```

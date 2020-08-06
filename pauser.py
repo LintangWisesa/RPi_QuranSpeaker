@@ -3,6 +3,13 @@
 import sys
 import socketio
 
+def get_action():
+    action = sys.argv[1] if len(sys.argv) >= 2 else 'toggle'
+    if not action in ('toggle', 'pause', 'resume'):
+        raise ValueError('If specified, action should be either pause or resume')
+    return action
+
+action = get_action()
 got_first_response = False
 sio = socketio.Client()
 
@@ -13,10 +20,10 @@ def stream_status_handler(msg):
     print('Playback status: {}'.format(status))
     if not got_first_response:
         got_first_response = True
-        if status == 'playing':
+        if status == 'playing' and action in ('toggle', 'pause'):
             print("Pausing...")
             sio.emit('pausestream', {})
-        elif status == 'paused':
+        elif status == 'paused' and action in ('toggle', 'resume'):
             print("Resuming...")
             sio.emit('pausestream', {})
         else:

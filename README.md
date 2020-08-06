@@ -85,11 +85,27 @@ This project is built on __Raspberry Pi 3B+__ with __Raspbian OS__ and __Python 
     ```bash
     ./pauser.py
     ```
-    This script will only pause if it is currently in playing mode, and will resume
-    only if it is in paused mode. If it is in stopped mode, it will do nothing.
+    This script toggles the playing/paused mode. It will pause if it is
+    currently in playing mode, and will resume if it is in paused mode.
+    If it is in stopped mode, it will do nothing.
+
+    You can also be specific if you only want to either pause or resume:
+    ```bash
+    ./pauser.py pause # pauses only, skips if paused or stopped
+    ./pauser.py resume # resumes only, skips if playing or stopped
+    ./pauser.py toggle # toggles, skips if stopped, the default behavior
+    ```
 
     This is beneficial if you want to pause/resume playback beofre/after playing
     [Adhan](https://github.com/achaudhry/adhan) for example.
+
+    Another scenario is to pause playback every night and resume in the morning.
+    To do this add 2 cronjobs (type `crontab -e` and insert the below):
+
+    ```
+    0 22 * * * /home/pi/RPi_QuranSpeaker/pauser.py pause
+    0 6 * * * /home/pi/RPi_QuranSpeaker/pauser.py resume
+    ```
 
 <hr>
 
