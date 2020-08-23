@@ -61,12 +61,11 @@ This project is built on __Raspberry Pi 3B+__ with __Raspbian OS__ and __Python 
 
 - ### 4. Run Flask application
 
-    Go back to the project root, then run its server application (```app.py``` file).
+    Go to the project root, then run its server application (```app.py``` file).
 
     ```bash
-    $ cd ..
-
-    $ python3 app.py
+    $ cd RPi_QuranSpekaer
+    $ ./app.py
     ```
 
     The application (server) will be listening on port ```5000```, so you can access it via your Pi's web browser (for example *__Chromium__*): http://123.456.78.910:5000.
@@ -106,6 +105,35 @@ This project is built on __Raspberry Pi 3B+__ with __Raspbian OS__ and __Python 
     0 22 * * * /home/pi/RPi_QuranSpeaker/pauser.py pause
     0 6 * * * /home/pi/RPi_QuranSpeaker/pauser.py resume
     ```
+
+<hr>
+
+- ### 7. Auto-start Quran Speaker on system boot
+
+    We are going to use [supervisord](http://supervisord.org/) for auto-starting
+    Quran Speaker on system boot and to ensure it is automatically restarted if
+    it was stopped for any reason.
+
+    1. Install supervisord:
+        ```bash
+        sudo apt install -y supervisor
+        ``` 
+    2. Place the following inside `/etc/supervisor/conf.d`:
+        ```ini
+        # /etc/supervisor/conf.d/quran_speaker.conf
+        [program:quran_speaker]
+        command=/home/pi/RPi_QuranSpeaker/app.py
+        user=pi
+        ```
+    3. Reload supervisord:
+        ```bash
+        sudo systemctl reload
+        ```
+    4. Monitor the status of the service and check logs if necessary:
+        ```bash
+        sudo supervisorctl status quran_speaker
+        sudo tail -f /var/log/supervisor/quran_speaker-stderr*
+        ```
 
 <hr>
 
